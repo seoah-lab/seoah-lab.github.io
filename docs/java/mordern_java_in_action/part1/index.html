@@ -1,0 +1,245 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="1 장 자바 8, 9, 10, 11 : 무슨 일이 일어나고 있는가? #    스트림 API
+스트림이란? 한번에 한 개씩 만들어지는 연속적인 데이터 항목들의 모임
+스트림의 특징
+ 스레드를 직접 구현하지 않으면서도 멀티스레딩 shared mutable data 에 접근하지 않고 안전한 코드 실행 반복적인 코드 블록으로 인한 외부 반복에서 내부 반복으로 전환함    메서드에 코드르 전달하는 기법
+동작의 파라미터화 (메서드를 전달함)
+메서드를 일급으로 함수를 일급으로
+메서드참조 (method reference)"><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Part 1. 기초"><meta property="og:description" content="1 장 자바 8, 9, 10, 11 : 무슨 일이 일어나고 있는가? #    스트림 API
+스트림이란? 한번에 한 개씩 만들어지는 연속적인 데이터 항목들의 모임
+스트림의 특징
+ 스레드를 직접 구현하지 않으면서도 멀티스레딩 shared mutable data 에 접근하지 않고 안전한 코드 실행 반복적인 코드 블록으로 인한 외부 반복에서 내부 반복으로 전환함    메서드에 코드르 전달하는 기법
+동작의 파라미터화 (메서드를 전달함)
+메서드를 일급으로 함수를 일급으로
+메서드참조 (method reference)"><meta property="og:type" content="article"><meta property="og:url" content="https://sogmy.github.io/docs/java/mordern_java_in_action/part1/"><meta property="article:section" content="docs"><title>Part 1. 기초 | SOGMY DOCS</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.e246e6a45b940b6ff71d8216783f10a80d910290a7c364c8bfd5d305d8545d62.css integrity="sha256-4kbmpFuUC2/3HYIWeD8QqA2RApCnw2TIv9XTBdhUXWI="><script defer src=/en.search.min.c4e57c7357188e9b9cbee2825ff0c7ab2994d35dd9f29b675f5e30465404ce47.js integrity="sha256-xOV8c1cYjpucvuKCX/DHqymU013Z8ptnX14wRlQEzkc="></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a href=/><span>SOGMY DOCS</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Java</span><ul><li><a href=https://sogmy.github.io/docs/java/javatype/>Primitive type, Reference type</a></li><li><input type=checkbox id=section-c7aeb586f4bfe724a4d2397888671ae7 class=toggle checked>
+<label for=section-c7aeb586f4bfe724a4d2397888671ae7 class="flex justify-between"><a>Mordern Java in Action</a></label><ul><li><a href=https://sogmy.github.io/docs/java/mordern_java_in_action/part1/ class=active>Part 1. 기초</a></li></ul></li></ul></li><li class=book-section-flat><span>Spring</span><ul></ul></li></ul></nav><script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Part 1. 기초</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#1-장-자바-8-9-10-11--무슨-일이-일어나고-있는가><strong>1 장 자바 8, 9, 10, 11 : 무슨 일이 일어나고 있는가?</strong></a></li><li><a href=#2-장-동적-파라미터화-코드전달하기><strong>2 장 동적 파라미터화 코드전달하기</strong></a></li><li><a href=#3장-람다-표현식>3장 람다 표현식</a></li></ul></nav></aside></header><article class=markdown><h2 id=1-장-자바-8-9-10-11--무슨-일이-일어나고-있는가><strong>1 장 자바 8, 9, 10, 11 : 무슨 일이 일어나고 있는가?</strong>
+<a class=anchor href=#1-%ec%9e%a5-%ec%9e%90%eb%b0%94-8-9-10-11--%eb%ac%b4%ec%8a%a8-%ec%9d%bc%ec%9d%b4-%ec%9d%bc%ec%96%b4%eb%82%98%ea%b3%a0-%ec%9e%88%eb%8a%94%ea%b0%80>#</a></h2><ul><li><p>스트림 API</p><p>스트림이란? 한번에 한 개씩 만들어지는 연속적인 데이터 항목들의 모임</p><p>스트림의 특징</p><ul><li>스레드를 직접 구현하지 않으면서도 멀티스레딩</li><li>shared mutable data 에 접근하지 않고 안전한 코드 실행</li><li>반복적인 코드 블록으로 인한 외부 반복에서 내부 반복으로 전환함</li></ul><p><img src=/images/stream.png alt=Stream></p></li><li><p>메서드에 코드르 전달하는 기법</p><p>동작의 파라미터화 (메서드를 전달함)</p><p>메서드를 일급으로 함수를 일급으로</p><p>메서드참조 (method reference)</p><p>람다: 익명함수</p></li><li><p>인터페이스의 디폴트 메소드</p><p>인터페이스 내부에 새로운 메소드를 구현</p></li><li><p>함수형 프로그래밍</p></li></ul><h2 id=2-장-동적-파라미터화-코드전달하기><strong>2 장 동적 파라미터화 코드전달하기</strong>
+<a class=anchor href=#2-%ec%9e%a5-%eb%8f%99%ec%a0%81-%ed%8c%8c%eb%9d%bc%eb%af%b8%ed%84%b0%ed%99%94-%ec%bd%94%eb%93%9c%ec%a0%84%eb%8b%ac%ed%95%98%ea%b8%b0>#</a></h2><p>변화하는 요구 사항에 대응하기 (예제로 동적 파라미터화 이해하기)</p><p>첫번째 시도 : 녹색사과 필터링</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> inventory <span style=color:#f92672>=</span> Arrays<span style=color:#f92672>.</span><span style=color:#a6e22e>asList</span><span style=color:#f92672>(</span>
+        <span style=color:#66d9ef>new</span> Apple<span style=color:#f92672>(</span>80<span style=color:#f92672>,</span> Color<span style=color:#f92672>.</span><span style=color:#a6e22e>GREEN</span><span style=color:#f92672>),</span>
+        <span style=color:#66d9ef>new</span> Apple<span style=color:#f92672>(</span>155<span style=color:#f92672>,</span> Color<span style=color:#f92672>.</span><span style=color:#a6e22e>GREEN</span><span style=color:#f92672>),</span>
+        <span style=color:#66d9ef>new</span> Apple<span style=color:#f92672>(</span>120<span style=color:#f92672>,</span> Color<span style=color:#f92672>.</span><span style=color:#a6e22e>RED</span><span style=color:#f92672>));</span>
+
+<span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>filterGreenApples</span><span style=color:#f92672>(</span>List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> inventory<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+    List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> result <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;();</span>
+    <span style=color:#66d9ef>for</span> <span style=color:#f92672>(</span>Apple apple <span style=color:#f92672>:</span> inventory<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+      <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span><span style=color:#e6db74>&#34;green&#34;</span><span style=color:#f92672>.</span><span style=color:#a6e22e>equals</span><span style=color:#f92672>(</span>apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getColor</span><span style=color:#f92672>()))</span> <span style=color:#f92672>{</span>
+        result<span style=color:#f92672>.</span><span style=color:#a6e22e>add</span><span style=color:#f92672>(</span>apple<span style=color:#f92672>);</span>
+      <span style=color:#f92672>}</span>
+    <span style=color:#f92672>}</span>
+    <span style=color:#66d9ef>return</span> result<span style=color:#f92672>;</span>
+  <span style=color:#f92672>}</span>
+
+  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>filterHeavyApples</span><span style=color:#f92672>(</span>List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> inventory<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+    List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> result <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;();</span>
+    <span style=color:#66d9ef>for</span> <span style=color:#f92672>(</span>Apple apple <span style=color:#f92672>:</span> inventory<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+      <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>()</span> <span style=color:#f92672>&gt;</span> 150<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+        result<span style=color:#f92672>.</span><span style=color:#a6e22e>add</span><span style=color:#f92672>(</span>apple<span style=color:#f92672>);</span>
+      <span style=color:#f92672>}</span>
+    <span style=color:#f92672>}</span>
+    <span style=color:#66d9ef>return</span> result<span style=color:#f92672>;</span>
+  <span style=color:#f92672>}</span>
+</code></pre></div><p>두번째 시도 : 색을 파라미터화</p><ul><li>Color enum으로 일급 객체화</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>filterApplesByColor</span><span style=color:#f92672>(</span>List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> inventory<span style=color:#f92672>,</span> Color color<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+    List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> result <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;();</span>
+    <span style=color:#66d9ef>for</span> <span style=color:#f92672>(</span>Apple apple <span style=color:#f92672>:</span> inventory<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+      <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getColor</span><span style=color:#f92672>()</span> <span style=color:#f92672>==</span> color<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+        result<span style=color:#f92672>.</span><span style=color:#a6e22e>add</span><span style=color:#f92672>(</span>apple<span style=color:#f92672>);</span>
+      <span style=color:#f92672>}</span>
+    <span style=color:#f92672>}</span>
+    <span style=color:#66d9ef>return</span> result<span style=color:#f92672>;</span>
+  <span style=color:#f92672>}</span>
+
+List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> greenApples <span style=color:#f92672>=</span> filterApplesByColor<span style=color:#f92672>(</span>inventory<span style=color:#f92672>,</span> Color<span style=color:#f92672>.</span><span style=color:#a6e22e>GREEN</span><span style=color:#f92672>);</span>
+    System<span style=color:#f92672>.</span><span style=color:#a6e22e>out</span><span style=color:#f92672>.</span><span style=color:#a6e22e>println</span><span style=color:#f92672>(</span>greenApples<span style=color:#f92672>);</span>
+</code></pre></div><p>세번째 시도: 가능한 모든 속성을 필터링</p><p>네번째 시도: 추상적 조건으로 필터링</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#75715e>//인터페이스로 추상화
+</span><span style=color:#75715e></span><span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>ApplePredicate</span> <span style=color:#f92672>{</span>
+    <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>test</span><span style=color:#f92672>(</span>Apple a<span style=color:#f92672>);</span>
+<span style=color:#f92672>}</span>
+
+<span style=color:#75715e>//인터페이스를 구현
+</span><span style=color:#75715e></span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AppleWeightPredicate</span> <span style=color:#66d9ef>implements</span> ApplePredicate <span style=color:#f92672>{</span>
+
+  <span style=color:#a6e22e>@Override</span>
+  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>test</span><span style=color:#f92672>(</span>Apple apple<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+    <span style=color:#66d9ef>return</span> apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>()</span> <span style=color:#f92672>&gt;</span> 150<span style=color:#f92672>;</span>
+  <span style=color:#f92672>}</span>
+
+<span style=color:#f92672>}</span>
+
+<span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AppleColorPredicate</span> <span style=color:#66d9ef>implements</span> ApplePredicate <span style=color:#f92672>{</span>
+
+  <span style=color:#a6e22e>@Override</span>
+  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>test</span><span style=color:#f92672>(</span>Apple apple<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+    <span style=color:#66d9ef>return</span> apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getColor</span><span style=color:#f92672>()</span> <span style=color:#f92672>==</span> Color<span style=color:#f92672>.</span><span style=color:#a6e22e>GREEN</span><span style=color:#f92672>;</span>
+  <span style=color:#f92672>}</span>
+
+<span style=color:#f92672>}</span>
+
+<span style=color:#66d9ef>static</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AppleRedAndHeavyPredicate</span> <span style=color:#66d9ef>implements</span> ApplePredicate <span style=color:#f92672>{</span>
+
+  <span style=color:#a6e22e>@Override</span>
+  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>test</span><span style=color:#f92672>(</span>Apple apple<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+    <span style=color:#66d9ef>return</span> apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getColor</span><span style=color:#f92672>()</span> <span style=color:#f92672>==</span> Color<span style=color:#f92672>.</span><span style=color:#a6e22e>RED</span><span style=color:#f92672>&amp;&amp;</span> apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>()</span> <span style=color:#f92672>&gt;</span> 150<span style=color:#f92672>;</span>
+  <span style=color:#f92672>}</span>
+
+<span style=color:#f92672>}</span>
+</code></pre></div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>filter</span><span style=color:#f92672>(</span>List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> inventory<span style=color:#f92672>,</span> ApplePredicate p<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+  List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> result <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;();</span>
+  <span style=color:#66d9ef>for</span> <span style=color:#f92672>(</span>Apple apple <span style=color:#f92672>:</span> inventory<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+    <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>p<span style=color:#f92672>.</span><span style=color:#a6e22e>test</span><span style=color:#f92672>(</span>apple<span style=color:#f92672>))</span> <span style=color:#f92672>{</span>
+      result<span style=color:#f92672>.</span><span style=color:#a6e22e>add</span><span style=color:#f92672>(</span>apple<span style=color:#f92672>);</span>
+    <span style=color:#f92672>}</span>
+  <span style=color:#f92672>}</span>
+  <span style=color:#66d9ef>return</span> result<span style=color:#f92672>;</span>
+<span style=color:#f92672>}</span>
+
+<span style=color:#75715e>// [Apple{color=GREEN, weight=80}, Apple{color=GREEN, weight=155}]
+</span><span style=color:#75715e></span>List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> greenApples2 <span style=color:#f92672>=</span> filter<span style=color:#f92672>(</span>inventory<span style=color:#f92672>,</span> <span style=color:#66d9ef>new</span> AppleColorPredicate<span style=color:#f92672>());</span>
+System<span style=color:#f92672>.</span><span style=color:#a6e22e>out</span><span style=color:#f92672>.</span><span style=color:#a6e22e>println</span><span style=color:#f92672>(</span>greenApples2<span style=color:#f92672>);</span>
+
+<span style=color:#75715e>// [Apple{color=GREEN, weight=155}]
+</span><span style=color:#75715e></span>List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> heavyApples <span style=color:#f92672>=</span> filter<span style=color:#f92672>(</span>inventory<span style=color:#f92672>,</span> <span style=color:#66d9ef>new</span> AppleWeightPredicate<span style=color:#f92672>());</span>
+System<span style=color:#f92672>.</span><span style=color:#a6e22e>out</span><span style=color:#f92672>.</span><span style=color:#a6e22e>println</span><span style=color:#f92672>(</span>heavyApples<span style=color:#f92672>);</span>
+
+<span style=color:#75715e>// []
+</span><span style=color:#75715e></span>List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> redAndHeavyApples <span style=color:#f92672>=</span> filter<span style=color:#f92672>(</span>inventory<span style=color:#f92672>,</span> <span style=color:#66d9ef>new</span> AppleRedAndHeavyPredicate<span style=color:#f92672>());</span>
+System<span style=color:#f92672>.</span><span style=color:#a6e22e>out</span><span style=color:#f92672>.</span><span style=color:#a6e22e>println</span><span style=color:#f92672>(</span>redAndHeavyApples<span style=color:#f92672>);</span>
+</code></pre></div><p>다섯번째 시도: 익명클래스 사용</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> redApples <span style=color:#f92672>=</span> filter<span style=color:#f92672>(</span>inventory<span style=color:#f92672>,</span> <span style=color:#66d9ef>new</span> ApplePredicate<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+      <span style=color:#a6e22e>@Override</span>
+      <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>test</span><span style=color:#f92672>(</span>Apple a<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+        <span style=color:#66d9ef>return</span> RED<span style=color:#f92672>.</span><span style=color:#a6e22e>equals</span><span style=color:#f92672>(</span>apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getColor</span><span style=color:#f92672>());</span>
+      <span style=color:#f92672>}</span>
+    <span style=color:#f92672>});</span>
+</code></pre></div><p>여섯번째 시도 : 람다 표현식</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>List<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> result <span style=color:#f92672>=</span> filterApples<span style=color:#f92672>(</span>inventory<span style=color:#f92672>,</span> <span style=color:#f92672>(</span>Apple apple<span style=color:#f92672>)</span> <span style=color:#f92672>-&gt;</span> RED<span style=color:#f92672>.</span><span style=color:#a6e22e>equals</span><span style=color:#f92672>(</span>apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getcolor</span><span style=color:#f92672>()));</span>
+</code></pre></div><p>일곱번째 시도: 리스트 형식의 추상화</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> List<span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>filter</span><span style=color:#f92672>(</span>List<span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> list<span style=color:#f92672>,</span> Predicate<span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> p <span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+	List<span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> result <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> ArrayList<span style=color:#f92672>&lt;&gt;;</span>
+	<span style=color:#66d9ef>for</span><span style=color:#f92672>(</span>T e<span style=color:#f92672>:</span> list<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+		<span style=color:#66d9ef>if</span><span style=color:#f92672>(</span>p<span style=color:#f92672>.</span><span style=color:#a6e22e>test</span><span style=color:#f92672>(</span>e<span style=color:#f92672>))</span> <span style=color:#f92672>{</span>
+			result<span style=color:#f92672>.</span><span style=color:#a6e22e>add</span><span style=color:#f92672>(</span>e<span style=color:#f92672>);</span>
+		<span style=color:#f92672>}</span>
+	<span style=color:#f92672>}</span>
+	<span style=color:#66d9ef>return</span> result<span style=color:#f92672>;</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><h2 id=3장-람다-표현식>3장 람다 표현식
+<a class=anchor href=#3%ec%9e%a5-%eb%9e%8c%eb%8b%a4-%ed%91%9c%ed%98%84%ec%8b%9d>#</a></h2><p><img src=/images/lambda.png alt=lambda></p><ul><li><p>익명 : 보통 메서드와 달리 이름이 없으므로 익명이라 표현한다.</p></li><li><p>함수 : 특정 클래스에 종속되지 않으므로 메서드 대신 함수라고 표현한다.</p></li><li><p>전달 : 람다 표현식을 메서드 인수로 전달하거나 변수로 저장할 수 있다.</p></li><li><p>간결성 : 익명 클래스처럼 많은 코드를 구현할 필요가 없다.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>Comparator<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> byWeight <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Comparator<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;()</span> <span style=color:#f92672>{</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>compare</span><span style=color:#f92672>(</span>Apple a1<span style=color:#f92672>,</span> Apple a2<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+        <span style=color:#66d9ef>return</span> a1<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>().</span><span style=color:#a6e22e>compareTo</span><span style=color:#f92672>(</span>a2<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>());</span>
+    <span style=color:#f92672>}</span>
+<span style=color:#f92672>}</span>
+
+Compartor<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> byWeight <span style=color:#f92672>=</span> <span style=color:#f92672>(</span>Apple a1<span style=color:#f92672>,</span> Apple a2<span style=color:#f92672>)</span> <span style=color:#f92672>-&gt;</span>  a1<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>().</span><span style=color:#a6e22e>compareTo</span><span style=color:#f92672>(</span>a2<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>());</span>
+</code></pre></div></li></ul><p>함수형 인터페이스라는 문맥에서 람다 표현식을 사용할수 있다.</p><p><strong>함수형 인터페이스</strong></p><ul><li>함수형 인터페이스는 정확히 하나의 추상메서드를 지정하는 인터페이스이다.</li></ul><p><strong>함수 디스크립터</strong></p><ul><li>함수 디스크립터는 람다에서의 메소드 시그니처를 표현하는 메서드를 말한다.</li></ul><p><strong>람다 활용</strong></p><p>실행 어라운드 패턴</p><p>자원 처리(예를 들면 DB의 파일 처리)에 사용하는 순환 패턴은 자원을 열고, 처리한 다음에, 자원을 닫는 순서로 이루어진다. 설정과 정리 과정은 대부분 비슷하다. 즉, 실제 자원을 처리하는 코드를 설정과 정리 두 과정이 둘러싸는 형태를 갖는데 이 같은 형식의 코드를 실행 어라운드 패턴이라고 부른다.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>final</span> String FILE <span style=color:#f92672>=</span> ExecuteAround<span style=color:#f92672>.</span><span style=color:#a6e22e>class</span><span style=color:#f92672>.</span><span style=color:#a6e22e>getResource</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;./data.txt&#34;</span><span style=color:#f92672>).</span><span style=color:#a6e22e>getFile</span><span style=color:#f92672>();</span>
+
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> String <span style=color:#a6e22e>processFileLimited</span><span style=color:#f92672>()</span> <span style=color:#66d9ef>throws</span> IOException <span style=color:#f92672>{</span>
+    <span style=color:#66d9ef>try</span> <span style=color:#f92672>(</span>BufferedReader br <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> BufferedReader<span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> FileReader<span style=color:#f92672>(</span>FILE<span style=color:#f92672>)))</span> <span style=color:#f92672>{</span>
+        <span style=color:#66d9ef>return</span> br<span style=color:#f92672>.</span><span style=color:#a6e22e>readLine</span><span style=color:#f92672>();</span>
+    <span style=color:#f92672>}</span>
+    <span style=color:#f92672>}</span>
+
+    <span style=color:#75715e>//(1) 실행 어라운트 패턴의 구현
+</span><span style=color:#75715e></span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> String <span style=color:#a6e22e>processFile</span><span style=color:#f92672>(</span>BufferedReaderProcessor p<span style=color:#f92672>)</span> <span style=color:#66d9ef>throws</span> IOException <span style=color:#f92672>{</span>
+    <span style=color:#66d9ef>try</span> <span style=color:#f92672>(</span>BufferedReader br <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> BufferedReader<span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> FileReader<span style=color:#f92672>(</span>FILE<span style=color:#f92672>)))</span> <span style=color:#f92672>{</span>
+        <span style=color:#66d9ef>return</span> p<span style=color:#f92672>.</span><span style=color:#a6e22e>process</span><span style=color:#f92672>(</span>br<span style=color:#f92672>);</span>
+    <span style=color:#f92672>}</span>
+    <span style=color:#f92672>}</span>
+
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>BufferedReaderProcessor</span> <span style=color:#f92672>{</span>
+    String <span style=color:#a6e22e>process</span><span style=color:#f92672>(</span>BufferedReader b<span style=color:#f92672>)</span> <span style=color:#66d9ef>throws</span> IOException<span style=color:#f92672>;</span>
+    <span style=color:#f92672>}</span>
+
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span><span style=color:#f92672>(</span>String<span style=color:#f92672>...</span> args<span style=color:#f92672>)</span> <span style=color:#66d9ef>throws</span> IOException <span style=color:#f92672>{</span>
+    <span style=color:#75715e>// 더 유연하게 리팩토링할 메서드
+</span><span style=color:#75715e></span>    String result <span style=color:#f92672>=</span> processFileLimited<span style=color:#f92672>();</span>
+    System<span style=color:#f92672>.</span><span style=color:#a6e22e>out</span><span style=color:#f92672>.</span><span style=color:#a6e22e>println</span><span style=color:#f92672>(</span>result<span style=color:#f92672>);</span>
+
+    System<span style=color:#f92672>.</span><span style=color:#a6e22e>out</span><span style=color:#f92672>.</span><span style=color:#a6e22e>println</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;---&#34;</span><span style=color:#f92672>);</span>
+
+    String oneLine <span style=color:#f92672>=</span> processFile<span style=color:#f92672>((</span>BufferedReader b<span style=color:#f92672>)</span> <span style=color:#f92672>-&gt;</span> b<span style=color:#f92672>.</span><span style=color:#a6e22e>readLine</span><span style=color:#f92672>());</span>
+    System<span style=color:#f92672>.</span><span style=color:#a6e22e>out</span><span style=color:#f92672>.</span><span style=color:#a6e22e>println</span><span style=color:#f92672>(</span>oneLine<span style=color:#f92672>);</span>
+
+    String twoLines <span style=color:#f92672>=</span> processFile<span style=color:#f92672>((</span>BufferedReader b<span style=color:#f92672>)</span> <span style=color:#f92672>-&gt;</span> b<span style=color:#f92672>.</span><span style=color:#a6e22e>readLine</span><span style=color:#f92672>()</span> <span style=color:#f92672>+</span> b<span style=color:#f92672>.</span><span style=color:#a6e22e>readLine</span><span style=color:#f92672>());</span>
+    System<span style=color:#f92672>.</span><span style=color:#a6e22e>out</span><span style=color:#f92672>.</span><span style=color:#a6e22e>println</span><span style=color:#f92672>(</span>twoLines<span style=color:#f92672>);</span>
+    <span style=color:#f92672>}</span>
+</code></pre></div><p><strong>함수형 인터페이스의 사용</strong></p><ul><li>Predicate</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#a6e22e>@FunctionalInterface</span>
+<span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Predicate</span><span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> <span style=color:#f92672>{</span>
+
+    <span style=color:#75715e>/**
+</span><span style=color:#75715e>     * Evaluates this predicate on the given argument.
+</span><span style=color:#75715e>     *
+</span><span style=color:#75715e>     * @param t the input argument
+</span><span style=color:#75715e>     * @return {@code true} if the input argument matches the predicate,
+</span><span style=color:#75715e>     * otherwise {@code false}
+</span><span style=color:#75715e>     */</span>
+    <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>test</span><span style=color:#f92672>(</span>T t<span style=color:#f92672>);</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><ul><li>Consumeer</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#a6e22e>@FunctionalInterface</span>
+<span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Consumer</span><span style=color:#f92672>&lt;</span>T<span style=color:#f92672>&gt;</span> <span style=color:#f92672>{</span>
+
+    <span style=color:#75715e>/**
+</span><span style=color:#75715e>     * Performs this operation on the given argument.
+</span><span style=color:#75715e>     *
+</span><span style=color:#75715e>     * @param t the input argument
+</span><span style=color:#75715e>     */</span>
+    <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>accept</span><span style=color:#f92672>(</span>T t<span style=color:#f92672>);</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><ul><li>Function</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#a6e22e>@FunctionalInterface</span>
+<span style=color:#66d9ef>public</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Function</span><span style=color:#f92672>&lt;</span>T<span style=color:#f92672>,</span> R<span style=color:#f92672>&gt;</span> <span style=color:#f92672>{</span>
+
+    <span style=color:#75715e>/**
+</span><span style=color:#75715e>     * Applies this function to the given argument.
+</span><span style=color:#75715e>     *
+</span><span style=color:#75715e>     * @param t the function argument
+</span><span style=color:#75715e>     * @return the function result
+</span><span style=color:#75715e>     */</span>
+    R <span style=color:#a6e22e>apply</span><span style=color:#f92672>(</span>T t<span style=color:#f92672>);</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><p>람다의 형식 검사, 형식 추론, 제약</p><ul><li><strong>형식검사</strong></li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>filter <span style=color:#f92672>(</span>inventory<span style=color:#f92672>,</span> <span style=color:#f92672>(</span>Apple apple<span style=color:#f92672>)</span> <span style=color:#f92672>-&gt;</span> apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>()</span> <span style=color:#f92672>&gt;</span> 150<span style=color:#f92672>)</span>
+</code></pre></div><p><img src=/images/lambda_test.png alt=형식검사></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#75715e>//같은 람다, 다른 함수형 인터페이스
+</span><span style=color:#75715e></span>Callable<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> c <span style=color:#f92672>=</span> <span style=color:#f92672>()</span> <span style=color:#f92672>-&gt;</span> 42<span style=color:#f92672>;</span>
+PrivilegedAction<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span> p <span style=color:#f92672>=</span> <span style=color:#f92672>()</span> <span style=color:#f92672>-&gt;</span> 42<span style=color:#f92672>;</span>
+</code></pre></div><ul><li><strong>형식 추론</strong></li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>filter <span style=color:#f92672>(</span>inventory<span style=color:#f92672>,</span> <span style=color:#f92672>(</span>Apple apple<span style=color:#f92672>)</span> <span style=color:#f92672>-&gt;</span> apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>()</span> <span style=color:#f92672>&gt;</span> 150<span style=color:#f92672>)</span>
+filter <span style=color:#f92672>(</span>inventory<span style=color:#f92672>,</span>  apple <span style=color:#f92672>-&gt;</span> apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>()</span> <span style=color:#f92672>&gt;</span> 150<span style=color:#f92672>)</span>  <span style=color:#75715e>//Apple 은 생략 가능하다.
+</span></code></pre></div><ul><li><strong>제약</strong></li></ul><p>람다에서 지역변수는 람다 캡처링에 의해서 final 변수와 동일하게 사용해야 한다.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>int</span> portNumber <span style=color:#f92672>=</span> 1337<span style=color:#f92672>;</span>
+Runnable r <span style=color:#f92672>=</span> <span style=color:#f92672>()</span> <span style=color:#f92672>-&gt;</span> System<span style=color:#f92672>.</span><span style=color:#a6e22e>out</span><span style=color:#f92672>.</span><span style=color:#a6e22e>prinln</span><span style=color:#f92672>(</span>portNumber<span style=color:#f92672>);</span> 
+portNumber <span style=color:#f92672>=</span> 31337<span style=color:#f92672>;</span> 
+<span style=color:#75715e>//컴파일 오류 발생
+</span></code></pre></div><p><strong>메서드 참조</strong></p><p>메소드 참조(method reference)는 람다 표현식이 단 하나의 메소드만을 호출하는 경우에 해당 람다 표현식에서 불필요한 매개변수를 제거하고 사용할 수 있다.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>inventory<span style=color:#f92672>.</span><span style=color:#a6e22e>sort</span><span style=color:#f92672>((</span>a1<span style=color:#f92672>,</span> a2<span style=color:#f92672>)</span> <span style=color:#f92672>-&gt;</span> a1<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>().</span><span style=color:#a6e22e>compareTo</span><span style=color:#f92672>(</span>a2<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>));</span> 
+inventory<span style=color:#f92672>.</span><span style=color:#a6e22e>sort</span><span style=color:#f92672>(</span>comparing<span style=color:#f92672>(</span>Apple<span style=color:#f92672>::</span>getWeight<span style=color:#f92672>));</span>
+</code></pre></div><p><strong>생성자 참조</strong></p><p>단순히 객체를 생성하고 반환하는 람다 표현식은 생성자 참조로 변환</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>Supplier<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> c1 <span style=color:#f92672>=</span> Apple<span style=color:#f92672>::</span><span style=color:#66d9ef>new</span><span style=color:#f92672>;</span>
+Supplier<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> c1 <span style=color:#f92672>=</span> <span style=color:#f92672>()</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>new</span> Apple<span style=color:#f92672>();</span>
+Apple a1 <span style=color:#f92672>=</span> c2<span style=color:#f92672>.</span><span style=color:#a6e22e>get</span><span style=color:#f92672>();</span>
+
+Function<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>,</span> Apple<span style=color:#f92672>&gt;</span> c2 <span style=color:#f92672>=</span> Apple<span style=color:#f92672>::</span><span style=color:#66d9ef>new</span><span style=color:#f92672>;</span>
+Function<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>,</span> Apple<span style=color:#f92672>&gt;</span> c2 <span style=color:#f92672>=</span> <span style=color:#f92672>(</span>weight<span style=color:#f92672>)</span> <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>new</span> Apple<span style=color:#f92672>(</span>weight<span style=color:#f92672>);</span>
+Apple a2 <span style=color:#f92672>=</span> c2<span style=color:#f92672>.</span><span style=color:#a6e22e>aply</span><span style=color:#f92672>(</span>110<span style=color:#f92672>);</span>
+</code></pre></div><p><strong>람다 표현식을 조합할 수 있는 유용한 메소드</strong></p><ul><li>Comparator 조합</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#75715e>// 비교를 이용해 Comparator를 반환
+</span><span style=color:#75715e></span>Comparator<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> c <span style=color:#f92672>=</span> Comparator<span style=color:#f92672>.</span><span style=color:#a6e22e>comparing</span><span style=color:#f92672>(</span>Apple<span style=color:#f92672>::</span>getWeight<span style=color:#f92672>);</span>
+
+<span style=color:#75715e>// 역정렬
+</span><span style=color:#75715e></span>inventory<span style=color:#f92672>.</span><span style=color:#a6e22e>sort</span><span style=color:#f92672>(</span>comparing<span style=color:#f92672>(</span>Apple<span style=color:#f92672>::</span>getWeight<span style=color:#f92672>).</span><span style=color:#a6e22e>reversed</span><span style=color:#f92672>());</span> <span style=color:#75715e>// &lt;- 무게 내림차순으로 정렬
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>// 연결
+</span><span style=color:#75715e></span>inventory<span style=color:#f92672>.</span><span style=color:#a6e22e>sort</span><span style=color:#f92672>(</span>comparing<span style=color:#f92672>(</span>Apple<span style=color:#f92672>::</span>getWeight<span style=color:#f92672>)</span>
+					<span style=color:#f92672>.</span><span style=color:#a6e22e>reversed</span><span style=color:#f92672>()</span> <span style=color:#75715e>// &lt;- 무게 내림차순으로 정렬
+</span><span style=color:#75715e></span>					<span style=color:#f92672>.</span><span style=color:#a6e22e>thenComparing</span><span style=color:#f92672>(</span>Apple<span style=color:#f92672>::</span>getCountry<span style=color:#f92672>));</span> <span style=color:#75715e>// 두 사과의 무게가 같은면 국가 별로 정렬
+</span><span style=color:#75715e></span>
+</code></pre></div><p>Predicate 조합</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#75715e>//기존 프레디케이트 객체결과를 반전시킨 결과
+</span><span style=color:#75715e></span>Predicate<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> notRedApple <span style=color:#f92672>=</span> redApple<span style=color:#f92672>.</span><span style=color:#a6e22e>negate</span><span style=color:#f92672>();</span>
+
+<span style=color:#75715e>// 두개 연결
+</span><span style=color:#75715e></span>Predicate<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> redAndHeavyApple <span style=color:#f92672>=</span> redApple<span style=color:#f92672>.</span><span style=color:#a6e22e>and</span><span style=color:#f92672>(</span>apple <span style=color:#f92672>-&gt;</span> apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>()</span> <span style=color:#f92672>&gt;</span> 150<span style=color:#f92672>);</span>
+
+<span style=color:#75715e>// 연결해서 복잡한 결과
+</span><span style=color:#75715e></span>Predicate<span style=color:#f92672>&lt;</span>Apple<span style=color:#f92672>&gt;</span> redAndHeavyApple <span style=color:#f92672>=</span> redApple<span style=color:#f92672>.</span><span style=color:#a6e22e>and</span><span style=color:#f92672>(</span>apple <span style=color:#f92672>-&gt;</span> apple<span style=color:#f92672>.</span><span style=color:#a6e22e>getWeight</span><span style=color:#f92672>()</span> <span style=color:#f92672>&gt;</span> 150<span style=color:#f92672>)</span>
+																						<span style=color:#f92672>.</span><span style=color:#a6e22e>or</span><span style=color:#f92672>(</span>GREEN<span style=color:#f92672>.</span><span style=color:#a6e22e>equals</span><span style=color:#f92672>(</span>a<span style=color:#f92672>.</span><span style=color:#a6e22e>getColor</span><span style=color:#f92672>()));</span>
+</code></pre></div><p>Funtion 조합</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>Function<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>,</span> Integer<span style=color:#f92672>&gt;</span> f <span style=color:#f92672>=</span> x <span style=color:#f92672>-&gt;</span> x <span style=color:#f92672>+</span> 1<span style=color:#f92672>;</span> 
+Function<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>,</span> Integer<span style=color:#f92672>&gt;</span> g <span style=color:#f92672>=</span> x <span style=color:#f92672>-&gt;</span> x <span style=color:#f92672>*</span> 5<span style=color:#f92672>;</span> 
+Function<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>,</span> Integer<span style=color:#f92672>&gt;</span> h <span style=color:#f92672>=</span> f<span style=color:#f92672>.</span><span style=color:#a6e22e>andThen</span><span style=color:#f92672>(</span>g<span style=color:#f92672>);</span> 
+<span style=color:#66d9ef>int</span> result <span style=color:#f92672>=</span> h<span style=color:#f92672>.</span><span style=color:#a6e22e>appy</span><span style=color:#f92672>(</span>1<span style=color:#f92672>);</span> <span style=color:#75715e>//4 반환
+</span><span style=color:#75715e></span>
+Function<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>,</span> Integer<span style=color:#f92672>&gt;</span> f <span style=color:#f92672>=</span> x <span style=color:#f92672>-&gt;</span> x <span style=color:#f92672>+</span> 1<span style=color:#f92672>;</span> 
+Function<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>,</span> Integer<span style=color:#f92672>&gt;</span> g <span style=color:#f92672>=</span> x <span style=color:#f92672>-&gt;</span> x <span style=color:#f92672>*</span> 5<span style=color:#f92672>;</span> 
+Function<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>,</span> Integer<span style=color:#f92672>&gt;</span> h <span style=color:#f92672>=</span> f<span style=color:#f92672>.</span><span style=color:#a6e22e>compose</span><span style=color:#f92672>(</span>g<span style=color:#f92672>);</span> 
+<span style=color:#66d9ef>int</span> result <span style=color:#f92672>=</span> h<span style=color:#f92672>.</span><span style=color:#a6e22e>appy</span><span style=color:#f92672>(</span>1<span style=color:#f92672>);</span> <span style=color:#75715e>//3 반환
+</span></code></pre></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#1-장-자바-8-9-10-11--무슨-일이-일어나고-있는가><strong>1 장 자바 8, 9, 10, 11 : 무슨 일이 일어나고 있는가?</strong></a></li><li><a href=#2-장-동적-파라미터화-코드전달하기><strong>2 장 동적 파라미터화 코드전달하기</strong></a></li><li><a href=#3장-람다-표현식>3장 람다 표현식</a></li></ul></nav></div></aside></main></body></html>
