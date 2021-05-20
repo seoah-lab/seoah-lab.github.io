@@ -4,4 +4,6 @@
 스레드를 직접 구현하지 않으면서도 멀티스레딩 shared mutable data 에 접근하지 않고 안전한 코드 실행 반복적인 코드 블록으로 인한 외부 반복에서 내부 반복으로 전환함 메서드에 코드르 전달하는 기법
 동작의 파라미터화 (메서드를 전달함)
 메서드를 일급으로 함수를 일급으로
-메서드참조 (method reference)</description></item></channel></rss>
+메서드참조 (method reference)</description></item><item><title>Part2. 함수형 데이터 처리</title><link>https://sogmy.github.io/docs/java/mordern_java_in_action/part2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sogmy.github.io/docs/java/mordern_java_in_action/part2/</guid><description>Part2. 함수형 데이터 처리 # 4장 스트림 소개 # 스트림이란 무엇인가 Stream 자바 8 API 새로 추가된 기능이다.
+자바 7의 코드
+List&amp;lt;Dish&amp;gt; lowCaloricDishes = new ArrayList&amp;lt;&amp;gt;(); for(Dish dish: menu) { if(dish.getCalories() &amp;lt; 400) { lowCaloricDishes.add(dish); } } Collections.sort(lowCaloricdishes, new Comparator&amp;lt;Dish&amp;gt;() { // 익명 클래스로 요리 정렬 pulbic int compare(Dish dish1, Dish dish2) { return Integer.compare(dish1.getCalories(), dish2.getCalories()); } }); List&amp;lt;String&amp;gt; lowCaloricDishesName = new ArrayList(); for(DIsh dish: lowCaloricDishes) { lowCaloricDishesName.</description></item></channel></rss>
