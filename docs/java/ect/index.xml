@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SOGMY DOCS</title><link>https://sogmy.github.io/docs/java/ect/</link><description>Recent content on SOGMY DOCS</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://sogmy.github.io/docs/java/ect/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://sogmy.github.io/docs/java/ect/java_string_method/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sogmy.github.io/docs/java/ect/java_string_method/</guid><description>String Method # String.IndexOf()
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SOGMY DOCS</title><link>https://sogmy.github.io/docs/java/ect/</link><description>Recent content on SOGMY DOCS</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://sogmy.github.io/docs/java/ect/index.xml" rel="self" type="application/rss+xml"/><item><title>String Method</title><link>https://sogmy.github.io/docs/java/ect/java_string_method/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sogmy.github.io/docs/java/ect/java_string_method/</guid><description>String Method # String.IndexOf()
 String.LastIndexOf()
 String.length()
 String.contains()
@@ -7,4 +7,8 @@ String.replace()
 String.replaceAll()
 String.toLowCase()
 String.toUpperCase()
-String.substring()</description></item></channel></rss>
+String.substring()</description></item><item><title>javax @Valid</title><link>https://sogmy.github.io/docs/java/ect/javax_valid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sogmy.github.io/docs/java/ect/javax_valid/</guid><description>javax @Valid # implementation 'org.springframework.boot:spring-boot-starter-validation' @NotBlank
+null 이 아닌 값이다. 공백이 아닌 문자를 하나 이상 포함한다 @NotEmpty
+Type : CharSequence (length of character) Collection (collection size) Map (map size Array (array length) null 이거나 empty(빈 문자열)가 아니어야 한다. @NotNull
+Type : null 이 아닌 값이다. @Null
+Type :어떤 타입이든 수용한다. null 값이다.</description></item></channel></rss>
