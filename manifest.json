@@ -1,6 +1,6 @@
 {
-  "name": "SOGMY DOCS",
-  "short_name": "SOGMY DOCS",
+  "name": "Sogmy Devlog",
+  "short_name": "Sogmy Devlog",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
