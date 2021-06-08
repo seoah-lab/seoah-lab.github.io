@@ -26,7 +26,9 @@ String.replace()
 String.replaceAll()
 String.toLowCase()
 String.toUpperCase()
-String.substring()</description></item><item><title>javax @Valid</title><link>https://sogmy.github.io/docs/java/ect/javax_valid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sogmy.github.io/docs/java/ect/javax_valid/</guid><description>javax @Valid # implementation 'org.springframework.boot:spring-boot-starter-validation' @NotNull
-The annotated element must not be null. Accepts any type. @NotEmpty: The annotated element must not be null nor empty
-CharSequence (length of character sequence is evaluated) Collection (collection size is evaluated) Map (map size is evaluated) Array (array length is evaluated) @NotBlank
-The annotated element must not be null and must contain at least one non-whitespace character. Accepts @Null</description></item></channel></rss>
+String.substring()</description></item><item><title>javax @Valid</title><link>https://sogmy.github.io/docs/java/ect/javax_valid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sogmy.github.io/docs/java/ect/javax_valid/</guid><description>javax @Valid # implementation 'org.springframework.boot:spring-boot-starter-validation' @NotNull : The annotated element must not be null. Accepts any type.
+null 을 허용하지않고 모든 타입에 사용할수 있다. &amp;quot;&amp;quot; 이나 &amp;quot; &amp;quot; 은 허용한다. @NotEmpty: The annotated element must not be null nor empty
+null 과 &amp;quot;&amp;quot; 은 허용하지 않는다.
+&amp;quot; &amp;quot; 은 허용
+문자열, 콜랙션, 맵, 배열 타입에 활용할 수 있다.
+CharSequence (length of character sequence is evaluated)</description></item></channel></rss>
