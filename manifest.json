@@ -1,6 +1,6 @@
 {
-  "name": "Sogmy Devlog",
-  "short_name": "Sogmy Devlog",
+  "name": "DevLog",
+  "short_name": "DevLog",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
