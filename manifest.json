@@ -1,6 +1,6 @@
 {
-  "name": "DevLog Test",
-  "short_name": "DevLog Test",
+  "name": "Dev Log",
+  "short_name": "Dev Log",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
